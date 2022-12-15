@@ -13,5 +13,7 @@ Kerberos is a network authentication protocol, which is designed to allow users 
 •	Ksession: Session secret key between the user and the requested service.
 •	TicketService: Access ticket to the requested service.
 
+![image](https://user-images.githubusercontent.com/120678001/207984233-cd3cf42b-9d68-42e5-8beb-6f3c6b50544b.png)
+
 
 ![main-qimg-3b5914f158064643ca4a10f75dd90d78](https://user-images.githubusercontent.com/120678001/207944504-ba5078ed-8cc8-4922-9bc8-c98864e307ab.gif)
