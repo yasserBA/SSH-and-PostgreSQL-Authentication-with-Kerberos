@@ -373,11 +373,11 @@ ktutil: wkt postgres.keytab
 
 In the Postgres server machine make the following directories :
 
-``` $ mkdir -p /home/postgres/pgsql/data ```
+``` $ mkdir -p /home/yasser/pgsql/data ```
 
 In the KDC machine send the keytab file to the Postgres server :
 
-```$ scp postgres.keytab postgres@PG_SERVER_IP_ADDRESS:/home/postgres/pgsql/data```
+```$ scp postgres.keytab postgres@PG_SERVER_IP_ADDRESS:/home/yasser/pgsql/data```
 
 *PS: We need to have openssh-server package installed on the service server*
 
@@ -460,7 +460,7 @@ By default, Postgres Server only allows connections from localhost. Since the cl
 
 We will also need to specify the keytab file location :
 
-``` krb_server_keyfile = '/home/postgres/pgsql/data/postgres.keytab' ```
+``` krb_server_keyfile = '/home/yasser/pgsql/data/postgres.keytab' ```
 
 ![image](https://user-images.githubusercontent.com/120678001/208066282-0f96ec4a-ae2d-4341-95ac-01d4e962bb6c.png)
 
@@ -519,11 +519,11 @@ Some of the possible choices for the authentication method field are the followi
    
  During the installation, we will be asked for configuration of :
  
-  • The realm : 'INSAT.TN' (must be all uppercase)
+  • The realm : 'TEKUP.TN' (must be all uppercase)
   
-  • The Kerberos server : 'kdc.insat.tn'
+  • The Kerberos server : 'kdc.tekup.tn'
   
-  • The administrative server : 'kdc.insat.tn'
+  • The administrative server : 'kdc.tekup.tn'
   
  PS : We need to enter the same information used for KDC Server.
  
