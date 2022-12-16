@@ -239,13 +239,15 @@ We will to create another principal for the client machine and the service serve
 First of all, we will prepare the working environment for this service.
 We need three machines. In my case, I'm using three ubuntu virtual machines in VMware. These three machines will be the client, the service server and the KDC.
 
-We can check the IP addresses of all three machines by running hostname -I in each one.
+We can check the IP addresses of all three machines by running ```hostname -I``` in each one.
 
 In my case :
 
-Client machine ip address is 192.168.183.145
-Service server machine ip address is 192.168.183.143
-KDC machine ip address is 192.168.183.142
+   • Client machine ip address is 192.168.183.145
+   
+   • Service server machine ip address is 192.168.183.143
+   
+   • KDC machine ip address is 192.168.183.142
 
 Now that we added ip addresses to the virtual machines, we will start by setting hostnames for each machine :
 
