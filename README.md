@@ -340,7 +340,7 @@ kadmin: add_principal postgres/pg.tekup.tn
 
 ![image](https://user-images.githubusercontent.com/120678001/208056800-cae1fe43-f3b6-48d9-b270-9276b36d5d49.png)
 
-For an easier configuration of Postgres, I changed the Operating System login name from 'yasser' to 'postgres'.
+
 
 ### Configuration of Kerberos on machine server
 
