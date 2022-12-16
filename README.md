@@ -459,7 +459,7 @@ In the KDC machine send the keytab file to the Postgres server :
  
    • grant all privileges on this database to the new role
  
-   ``` grant all privileges on database yosra to rayen; ```
+   ``` grant all privileges on database rayen to rayen; ```
    
 ![image](https://user-images.githubusercontent.com/120678001/208064756-e7abc3e4-815e-4c6b-952a-0790fc3a7071.png)
 
