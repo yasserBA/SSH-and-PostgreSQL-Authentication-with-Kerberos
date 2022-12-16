@@ -513,7 +513,7 @@ Some of the possible choices for the authentication method field are the followi
    
    • ``` peer ```: Obtain the client's operating system user name from the operating system and check if it matches the requested database user name. This is only available for *local connections*.
  
- So to allow the user 'yosra' to connect remotely using Kerberos we will add the following line :
+ So to allow the user 'rayen' to connect remotely using Kerberos we will add the following line :
  
  ``` 
  # IPv4 local connections:
