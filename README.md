@@ -338,11 +338,13 @@ In this file, we need to add the following line :
 
 ![17](https://user-images.githubusercontent.com/120678001/208129593-636f31d1-0058-4b9c-8a3d-170b94b52339.PNG)
 
-For changes to take effect, we need to restart the following service : sudo service krb5-admin-server restart
+For changes to take effect, we need to restart the following service : 
+
+```sudo service krb5-admin-server restart```
 
 Once the admin user who manages principals is created, we need to create the principals. We will to create principals for both the client machine and the service server machine.
 
-**Create a principal related to the client
+**Create a principal related to the client**
 
 ``` 
 $ Kadmin.local
