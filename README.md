@@ -269,6 +269,34 @@ sudo vi /etc/hosts
 Now, we should set below information to /etc/hosts for all three machines :
 ![7](https://user-images.githubusercontent.com/120678001/208123972-2b512149-812e-4988-8096-9182187c032a.PNG)
 
+## Key Distribution Center Machine Configuration
+
+### Kerberos Installation
+
+We need to install these packages on the KDC machine
+
+```
+$ sudo apt-get update 
+$ sudo apt-get install krb5-kdc krb5-admin-server 
+```
+
+
+![image](https://user-images.githubusercontent.com/120678001/208044422-8f58b12f-7c3e-4a23-9abf-30f346f83a04.png)
+
+During the installation, we should configure the
+
+•	Realm : TEKUP.TN
+
+![image](https://user-images.githubusercontent.com/120678001/208044576-37108f5e-225a-4bbb-84cb-a5a0981d9fa4.png)
+
+The Kerberos server : ' kdc.tekup.tn '
+
+![image](https://user-images.githubusercontent.com/120678001/208045197-1adec3c1-d4b1-41de-ac39-ef51834145ee.png)
+
+The administrative server : ' kdc.tekup.tn '
+
+![image](https://user-images.githubusercontent.com/120678001/208045294-3913a9a7-eec5-4f1b-8fb0-010f2663c732.png)
+
 
 ### Creating Principals
 
