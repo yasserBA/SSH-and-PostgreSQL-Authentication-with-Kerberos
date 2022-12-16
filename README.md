@@ -487,7 +487,7 @@ We will also need to specify the keytab file location :
 
 ``` krb_server_keyfile = '/home/yasser/pgsql/data/postgres.keytab' ```
 
-![image](https://user-images.githubusercontent.com/120678001/208066282-0f96ec4a-ae2d-4341-95ac-01d4e962bb6c.png)
+![image](https://user-images.githubusercontent.com/120678001/208133681-935c8447-5f55-4e55-96da-aeb77977c0c5.png)
 
 • Updating pg_hba.conf
 
@@ -533,7 +533,7 @@ Some of the possible choices for the authentication method field are the followi
  
  ``` sudo systemctl restart postgresql ```
  
-![image](https://user-images.githubusercontent.com/120678001/208133681-935c8447-5f55-4e55-96da-aeb77977c0c5.png)
+
 
 
 ### Client Machine Configuration
