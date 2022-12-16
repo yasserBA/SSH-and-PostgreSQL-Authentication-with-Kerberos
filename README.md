@@ -28,7 +28,7 @@ This protocol is an industry-standard protocol for secure authentication with th
 
 ![image](https://user-images.githubusercontent.com/120678001/207984233-cd3cf42b-9d68-42e5-8beb-6f3c6b50544b.png)
 
-## HostName and IP adresses 
+## Hostname and IP adresses 
 
 First of all, we will prepare the working environment for our project.
 We need three machines. In my case, I'm using three ubuntu virtual machines in VMware. These three machines will be the client, the service server and the KDC.
@@ -233,6 +233,22 @@ When PostgreSQL authenticates a user with Kerberos, the overall processes in abo
 •	Client forwards the communication session key to Service Server(PG) to confirm the user authentication. If it succeeded then both Client and Service Server will use the communication session key for the rest of the communication
 
 We will to create another principal for the client machine and the service server machine.
+
+## HostName and IP adresses 
+
+First of all, we will prepare the working environment for our project.
+We need three machines. In my case, I'm using three ubuntu virtual machines in VMware. These three machines will be the client, the service server and the KDC.
+
+We can check the IP addresses of all three machines by running hostname -I in each one.
+
+In my case :
+
+Client machine(physical machine) ip address is 192.168.56.1
+Service server machine (one the virtual machines) ip address is 192.168.56.108
+KDC machine (the other virtual machine) ip address is 192.168.56.102
+
+Now that we added ip addresses to the virtual machines, we will start by setting hostnames for each machine :
+
 
 ### Creating Principals
 
