@@ -399,7 +399,7 @@ In the Postgres server machine make the following directories :
 
 In the KDC machine send the keytab file to the Postgres server :
 
-```$ scp postgres.keytab postgres@PG_SERVER_IP_ADDRESS:/home/yasser/pgsql/data```
+```$ scp postgres.keytab yasser@PG_SERVER_IP_ADDRESS:/home/yasser/pgsql/data```
 
 *PS: We need to have openssh-server package installed on the service server*
 
