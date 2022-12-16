@@ -53,6 +53,8 @@ Once the configuration of the environment is complete, we need to check that eve
 
 ## Key Distribution Center Machine Configuration
 
+### Kerberos Installation
+
 We need to install these packages on the KDC machine
 
 ```
@@ -119,9 +121,128 @@ For changes to take effect, we need to restart the following service
 
 ```  $ sudo service krb5-admin-server restart  ```
 
+### Adding Principals
+
 The users and services in a realm are defined as a principal in Kerberos. These principals are managed by an admin user that we need to create manually :
 
-Kadmin.local is a KDC database administration program. We tried to create with this tool a new principal in the TEKUP.TN realm.
+Kadmin.local is a KDC database administration program. We tried to create with this tool a new principal in the TEKUP.TN realm
+
+![image](https://user-images.githubusercontent.com/120678001/208048875-a25c051d-0ad8-45f6-8c5c-1994f1f2c3ed.png)
+
+we can check if the root/admin principal has been created successfully or not by running the command: ``` $ list_principals ```
+
+![image](https://user-images.githubusercontent.com/120678001/208049070-58b6944f-0242-4639-a9de-eb4d468fd799.png)
+
+**We can observe all the information of the utilisateur principal**
+
+After that, we want to create a host by adding a principal *host/kdc.tekup.tn*
+
+![image](https://user-images.githubusercontent.com/120678001/208049399-e719d7c8-47fd-46bc-ba6c-903b715aa889.png)
+
+### Creating A Keytab File
+
+In this part, we  will create a keytab file (A database) which will be composed of entries, principals and encryption methods used for each principal.
+
+We will begin by adding a new_entry in the keytab file for the root/admin 
+
+``` 
+$ Ktutil
+ktutil: add_entry -password -p root/admin@TEKUP.TN -k 1 -e aes256-cts-hmac-sha1-96
+```
+
+![image](https://user-images.githubusercontent.com/120678001/208050495-37681de8-4359-4d94-9651-15a5780c17d0.png)
+
+![image](https://user-images.githubusercontent.com/120678001/208050539-5ba9e693-f580-4f79-a8b2-16b69a0df24c.png)
+
+Now we can see that the keytab is created :
+
+ ![image](https://user-images.githubusercontent.com/120678001/208050732-3f4a3640-2e7f-42d5-b8f9-f13427fd4733.png) 
+
+And The root/admin entry has been added successfully
+
+Then, we will add another new_entry in the keytab file for the host/kdc.tekup.tn
+
+![image](https://user-images.githubusercontent.com/120678001/208050942-e87a9447-ad69-4267-98fe-c50d044eab4f.png)
+
+![image](https://user-images.githubusercontent.com/120678001/208050973-5725db9b-0df5-4c78-8726-3c4c4af7e068.png)
+
+The host/kdc.tekup.tn entry has been added successfully
+
+## Service SSH
+
+### On the KDC machine 
+
+We need to have **openssh-server** package installed on the KDC machine.
+
+``` $ sudo apt install openssh-server ```
+
+
+Then, we need to modify the /etc/ssh/ssh_config file for the ssh service to work
+
+``` $ nano /etc/ssh/ssh_config ```
+
+
+![image](https://user-images.githubusercontent.com/120678001/208051969-fe3c61dc-6ce8-453e-9774-0983fe16d027.png)
+
+![image](https://user-images.githubusercontent.com/120678001/208052024-71286562-35b6-4795-b05b-1ee4c4814833.png)
+
+### On the client machine
+
+After installing the package Openssh-server and modifiying the file /etc/ssh/sshd_config as we did previously.
+
+We will add the principal of a simple user who will try to access the SSH service using kerberos after successfully completing its configuration.
+
+![image](https://user-images.githubusercontent.com/120678001/208052147-070891a9-34be-4e0b-b549-3f1758eb35c5.png)
+
+We can check if the user has been added successfully or not
+
+![image](https://user-images.githubusercontent.com/120678001/208052414-ae287988-22a5-474c-8ea5-f0239e3bbefe.png)
+
+We will login as a simple user now and try to access the KDC machine with an ssh service
+
+``` $ su -l utilisateur ```
+
+![image](https://user-images.githubusercontent.com/120678001/208052665-2e29ea43-8a5d-4ce6-b79d-370d4afa83c4.png)
+
+In order to access the KDC machine, we are still obligated to enter the machine’s password every time we want to have access to it
+
+**Our goal is to grant a TGT to our client so he can access our KDC machine (SSH Service) without having to type its password**
+
+![image](https://user-images.githubusercontent.com/120678001/208052854-81bc7b12-8472-4ad3-bad4-725d01d24745.png)
+
+The user has his TGT and he will use it to grant access to the SSH Service
+
+![image](https://user-images.githubusercontent.com/120678001/208052947-61b6d785-7718-43a3-b1b1-d3ab3af53d53.png)
+
+*The user can access the KDC machine without having to type its password*
+
+## Service 2: PostgreSQL
+
+PostgreSQL supports many secure ways to authenticate users, and one typical way is to use GSSAPI with Kerberos. 
+
+![image](https://user-images.githubusercontent.com/120678001/208054089-5b18968d-807f-4d79-89e7-e5b96f37a5e3.png)
+
+When PostgreSQL authenticates a user with Kerberos, the overall processes in above diagram can be interpreted in below order.
+
+•	Client initiates the authentication process, AS sends Client a temporary session key (grey key) encrypted with Client’s key (blue key)
+
+•	Client uses the temporary session key to request services, TGS grants the services and sends two copies of the communication session keys (yellow key): one encrypted using temporary session key and another encrypted using Service Server’s key (green key)
+
+•	Client forwards the communication session key to Service Server(PG) to confirm the user authentication. If it succeeded then both Client and Service Server will use the communication session key for the rest of the communication
+
+We will to create another principal for the client machine and the service server machine.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
