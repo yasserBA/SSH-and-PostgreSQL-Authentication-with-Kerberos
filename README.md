@@ -315,7 +315,7 @@ sudo vi /etc/krb5kdc/kadm5.acl
 In this file, we need to add the following line :
 
 ``` 
-*/admin@INSAT.TN    *
+*/admin@TEKUP.TN    *
 ``` 
 
 ![17](https://user-images.githubusercontent.com/120678001/208129593-636f31d1-0058-4b9c-8a3d-170b94b52339.PNG)
@@ -499,7 +499,7 @@ Some of the possible choices for the authentication method field are the followi
 
  And comment other connections over TCP/IP.
  
-``` krb_realm=TEKUP.TN ``` : Only users of INSAT.Tn realm will be accepted.
+``` krb_realm=TEKUP.TN ``` : Only users of TEKUP.Tn realm will be accepted.
 
  ``` include_realm=0 ``` :  If **include_realm** is set to 0, the realm name from the authenticated user principal is stripped off before being passed through the user name mapping. In a multi-realm environments this may not be secure unless krb_realm is also used.
  
