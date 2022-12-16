@@ -259,6 +259,15 @@ Now that we added ip addresses to the virtual machines, we will start by setting
    • List the current keylist again
       ![2](https://user-images.githubusercontent.com/120678001/208122096-76477819-88c7-4709-84f8-4b52a2d6bc94.PNG)
 
+And open a new terminal for changes to take effect.
+
+We can check the hostname of a machine by running the command : hostname
+
+Next, we will be mapping these hostnames to their corresponding IP addresses on all three machines using /etc/hosts file.
+sudo vi /etc/hosts
+
+Now, we should set below information to /etc/hosts for all three machines :
+
 
 ### Creating Principals
 
