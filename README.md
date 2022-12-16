@@ -240,16 +240,16 @@ We will to create another principal for the client machine and the service serve
 
 ``` 
 $ Kadmin.local
-kadmin: add_principal rayen-yasser
+kadmin: add_principal yasser
 ```
 
-![image](https://user-images.githubusercontent.com/120678001/208056422-c14b8d83-4663-4f78-b047-6adad915f116.png)
+![34](https://user-images.githubusercontent.com/120678001/208063569-b786f189-39c9-4305-8b50-275ab362724d.PNG)
 
 **Create a principal for the service server**
 
 ``` 
 $ Kadmin.local
-kadmin: add_principal postgres/client2.tekup.tn
+kadmin: add_principal postgres/pg.tekup.tn
 ```
 
 ![image](https://user-images.githubusercontent.com/120678001/208056800-cae1fe43-f3b6-48d9-b270-9276b36d5d49.png)
@@ -281,7 +281,7 @@ Password for postgres/pg.tekup.tn@TEKUP.TN:
 ktutil: wkt postgres.keytab
 ```
 
-![23](https://user-images.githubusercontent.com/120678001/208058572-05c82fec-563d-473f-adfe-3bcb04e22bfe.PNG)
+![36](https://user-images.githubusercontent.com/120678001/208063931-af17241b-d2d4-4dc9-8e62-16cb5b1f1480.PNG)
 
 2. Send the keytab file from the KDC machine to the Service server machine :
 
@@ -295,7 +295,197 @@ In the KDC machine send the keytab file to the Postgres server :
 
 *PS: We need to have openssh-server package installed on the service server*
 
+``` $ sudo apt-get install openssh-server ```
 
+![image](https://user-images.githubusercontent.com/120678001/208064128-63be68f8-7328-43b8-a14e-f36b6d2294e0.png)
+
+3. Verify that the service principal was succesfully extracted from the KDC database :
+
+   • List the current keylist
+   
+   ``` $ ktutil: list  ```
+   
+   • Read a krb5 keytab into the current keylist
+   
+   ``` $ ktutil: read_kt pgsql/data/postgres.keytab  ```
+   
+   • List the current keylist again
+   
+   ``` $ ktutil: list  ```
+   
+![image](https://user-images.githubusercontent.com/120678001/208064235-b01a6374-d9e6-421e-b67e-8554431dc1da.png)
+
+
+### Configuration of the service (PostgreSQL)
+
+#### Installation of PostgreSQL
+
+   1. Update the package lists
+
+   ``` $ sudo apt-get update  ```
+
+   2. Install necessary packages for Postgres
+   
+     $ sudo apt-get install postgresql postgresql-contrib 
+ 
+   3. Ensure that the service is started
+ 
+   ``` $ sudo systemctl start postgresql  ```
+ 
+ #### Create a Postgres Role for the Client
+ 
+ We will need to :
+ 
+   • Create a new role for the client
+ 
+   ``` create user rayen with encrypted password 'some_password'; ```
+   
+   • create a new database
+ 
+   ``` create database rayen; ```
+   
+![image](https://user-images.githubusercontent.com/120678001/208064614-2fc4ce41-b934-49c7-92d8-21a403c43219.png)
+ 
+   • grant all privileges on this database to the new role
+ 
+   ``` grant all privileges on database yosra to rayen; ```
+   
+![image](https://user-images.githubusercontent.com/120678001/208064756-e7abc3e4-815e-4c6b-952a-0790fc3a7071.png)
+
+To ensure the role was successfully created run the following command :
+   
+   ``` postgres=# SELECT usename FROM pg_user WHERE usename LIKE 'rayen' ```
+   
+![image](https://user-images.githubusercontent.com/120678001/208065144-1031a4e0-b17a-4d03-87bc-1855e0001498.png)
+
+The client rayen has now a role in Postgres and can access its database 'rayen'.
+
+#### Update Postgres Configuration files (postgresql.conf and pg_hba.conf )
+
+• Updating postgresql.conf
+
+To edit the file run the following command :
+
+``` sudo vi /etc/postgresql/12/main/postgresql.conf ```
+
+By default, Postgres Server only allows connections from localhost. Since the client will connect to the Postgres server remotely, we will need to modify postgresql.conf so that Postgres Server allows connection from the network :
+
+``` listen_addresses = '*' ```
+
+We will also need to specify the keytab file location :
+
+``` krb_server_keyfile = '/home/postgres/pgsql/data/postgres.keytab' ```
+
+![image](https://user-images.githubusercontent.com/120678001/208066282-0f96ec4a-ae2d-4341-95ac-01d4e962bb6c.png)
+
+• Updating pg_hba.conf
+
+HBA stands for host-based authentication. pg_hba.conf is the file used to control clients authentication in PostgreSQL. It is basically a set of records. Each record specifies a **connection type**, a **client IP address range**, a **database name**, a **user name**, and the **authentication method** to be used for connections matching these parameters.
+
+The first field of each record specifies the **type of the connection attempt** made. It can take the following values :
+ 
+  • ``` local ```: Connection attempts using Unix-domain sockets will be matched.
+  
+  • ``` host ```: Connection attempts using TCP/IP will be matched (SSL or non-SSL     as well as GSSAPI encrypted or non-GSSAPI encrypted connection attempts).
+  
+  • ``` hostgssenc ```: Connection attempts using TCP/IP will be matched, but only     when the connection is made with GSSAPI encryption.
+  
+Some of the possible choices for the authentication method field are the following:
+ 
+   • ``` trust ```: Allow the connection unconditionally.
+   
+   • ``` reject ```: Reject the connection unconditionally.
+   
+   • ``` md5 ```: Perform SCRAM-SHA-256 or MD5 authentication to verify the user's                   password.
+   
+   • ``` gss ```: Use GSSAPI to authenticate the user.
+   
+   • ``` peer ```: Obtain the client's operating system user name from the operating system and check if it matches the requested database user name. This is only available for *local connections*.
+ 
+ So to allow the user 'yosra' to connect remotely using Kerberos we will add the following line :
+ 
+ ``` 
+ # IPv4 local connections:
+ hostgssenc   rayen     rayen           <IP_ADDRESS_RANGE>         gss     include_realm=0 krb_realm=TEKUP.TN  
+ ```
+ 
+ ![image](https://user-images.githubusercontent.com/120678001/208069081-1e32e119-7d9a-4325-91e3-45d56973e9d2.png)
+
+ And comment other connections over TCP/IP.
+ 
+``` krb_realm=TEKUP.TN ``` : Only users of INSAT.Tn realm will be accepted.
+
+ ``` include_realm=0 ``` :  If **include_realm** is set to 0, the realm name from the authenticated user principal is stripped off before being passed through the user name mapping. In a multi-realm environments this may not be secure unless krb_realm is also used.
+ 
+ For changes to take effect we need to restart the service : 
+ 
+ ``` sudo systemctl restart postgresql ```
+ 
+ ![image](https://user-images.githubusercontent.com/120678001/208069328-d4152831-af3e-4707-b0ee-95cdbcf8a6a8.png)
+
+### Client Machine Configuration
+
+ Following are the packages that need to be installed on the Client machine :
+ 
+  ``` $ sudo apt-get update
+      $ sudo apt-get install krb5-user libpam-krb5 libpam-ccreds 
+  ```
+   
+ During the installation, we will be asked for configuration of :
+ 
+  • The realm : 'INSAT.TN' (must be all uppercase)
+  
+  • The Kerberos server : 'kdc.insat.tn'
+  
+  • The administrative server : 'kdc.insat.tn'
+  
+ PS : We need to enter the same information used for KDC Server.
+ 
+ ### User Authentication
+ 
+ Once the setup is complete, it's time for the client to authenticate using kerberos.
+ 
+ First, try to connect to PostgreSQL remotely :
+ 
+  ``` $ psql -d rayen -h pg.tekup.tn -U rayen ```
+  
+  ![48](https://user-images.githubusercontent.com/120678001/208070170-b87ac953-4f87-4afb-bcde-b94ce1ba16eb.PNG)
+
+-d specifies the database, -U specifies the postgres role and -h specifies the ip address of the machine hosting postgres.
+
+In the client machine check the cached credentials :
+
+``` $ klist ```
+
+Then initial the user authentication :
+
+``` $ kinit rayen ```
+
+And check the ticket granting ticket (TGT) :
+
+``` $ klist ```
+
+![50](https://user-images.githubusercontent.com/120678001/208070739-57e00506-8411-4104-9b75-982dc0c87ccf.PNG)
+
+Now try to connect once again :
+
+![image](https://user-images.githubusercontent.com/120678001/208072730-8abc1fdc-3480-400d-bff0-a67428426199.png)
+
+Now you can check the service ticket : ``` $ klist ```
+
+![image](https://user-images.githubusercontent.com/120678001/208072907-8c1ba2a1-f3d7-48d8-b834-1b9d41e945e3.png)
+
+ 
+
+
+
+   
+ 
+ 
+ 
+ 
+
+   
 
 
 
