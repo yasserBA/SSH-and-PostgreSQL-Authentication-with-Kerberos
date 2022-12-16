@@ -267,6 +267,7 @@ Next, we will be mapping these hostnames to their corresponding IP addresses on 
 sudo vi /etc/hosts
 
 Now, we should set below information to /etc/hosts for all three machines :
+![7](https://user-images.githubusercontent.com/120678001/208123972-2b512149-812e-4988-8096-9182187c032a.PNG)
 
 
 ### Creating Principals
