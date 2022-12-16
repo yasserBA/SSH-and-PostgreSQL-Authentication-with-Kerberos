@@ -266,7 +266,8 @@ And open a new terminal for changes to take effect.
 We can check the hostname of a machine by running the command : ```hostname```
 
 Next, we will be mapping these hostnames to their corresponding IP addresses on all three machines using /etc/hosts file.
-sudo vi /etc/hosts
+
+```sudo vi /etc/hosts```
 
 Now, we should set below information to /etc/hosts for all three machines :
 ![7](https://user-images.githubusercontent.com/120678001/208123972-2b512149-812e-4988-8096-9182187c032a.PNG)
