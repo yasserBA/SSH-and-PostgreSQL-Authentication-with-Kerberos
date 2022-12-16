@@ -297,6 +297,10 @@ The administrative server : ' kdc.tekup.tn '
 
 ![image](https://user-images.githubusercontent.com/120678001/208045294-3913a9a7-eec5-4f1b-8fb0-010f2663c732.png)
 
+Realm is a logical network, similar to a domain, that all the users and servers sharing the same Kerberos database belong to.
+
+The master key for this KDC database needs to be set once the installation is complete :
+
 
 ### Creating Principals
 
