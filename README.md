@@ -390,6 +390,8 @@ ktutil: wkt postgres.keytab
 ```
 
 ![36](https://user-images.githubusercontent.com/120678001/208063931-af17241b-d2d4-4dc9-8e62-16cb5b1f1480.PNG)
+![29](https://user-images.githubusercontent.com/120678001/208150661-eabf4ed9-e104-44b6-ba08-ced399d2d046.PNG)
+
 
 2. Send the keytab file from the KDC machine to the Service server machine :
 
