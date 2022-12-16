@@ -251,12 +251,13 @@ Now that we added ip addresses to the virtual machines, we will start by setting
 
    • List the current keylist again
    
+   ![3](https://user-images.githubusercontent.com/120678001/208122091-dca1e091-5158-4dbb-aff0-d7e671cf395d.PNG)
+
+   • List the current keylist again
+   ![1](https://user-images.githubusercontent.com/120678001/208122094-bb4de3f3-d61c-42e2-9924-8fb0d42a8d1a.PNG)
    
    • List the current keylist again
-   
-   
-   • List the current keylist again
-      
+      ![2](https://user-images.githubusercontent.com/120678001/208122096-76477819-88c7-4709-84f8-4b52a2d6bc94.PNG)
 
 
 ### Creating Principals
