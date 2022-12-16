@@ -495,7 +495,8 @@ Some of the possible choices for the authentication method field are the followi
  hostgssenc   rayen     rayen           <IP_ADDRESS_RANGE>         gss     include_realm=0 krb_realm=TEKUP.TN  
  ```
  
- ![image](https://user-images.githubusercontent.com/120678001/208069081-1e32e119-7d9a-4325-91e3-45d56973e9d2.png)
+![image](https://user-images.githubusercontent.com/120678001/208134410-3cbf838f-7bda-4223-a49c-3be00c12a9f6.png)
+
 
  And comment other connections over TCP/IP.
  
