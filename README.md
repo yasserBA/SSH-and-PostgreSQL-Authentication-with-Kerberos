@@ -318,6 +318,7 @@ In this file, we need to add the following line :
 */admin@INSAT.TN    *
 ``` 
 
+![17](https://user-images.githubusercontent.com/120678001/208129593-636f31d1-0058-4b9c-8a3d-170b94b52339.PNG)
 
 ### Creating Principals
 
