@@ -525,7 +525,7 @@ Some of the possible choices for the authentication method field are the followi
 
  And comment other connections over TCP/IP.
  
-``` krb_realm=TEKUP.TN ``` : Only users of TEKUP.Tn realm will be accepted.
+``` krb_realm=TEKUP.TN ``` : Only users of TEKUP.TN realm will be accepted.
 
  ``` include_realm=0 ``` :  If **include_realm** is set to 0, the realm name from the authenticated user principal is stripped off before being passed through the user name mapping. In a multi-realm environments this may not be secure unless krb_realm is also used.
  
