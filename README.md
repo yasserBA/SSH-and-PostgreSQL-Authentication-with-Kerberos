@@ -574,6 +574,9 @@ Then initial the user authentication :
 
 ``` $ kinit rayen ```
 
+![53](https://user-images.githubusercontent.com/120678001/208152796-ead5739d-2817-4d08-9093-7b1083025c9f.PNG)
+
+
 And check the ticket granting ticket (TGT) :
 
 ``` $ klist ```
