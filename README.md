@@ -310,6 +310,25 @@ sudo krb5_newrealm
 
 ![15](https://user-images.githubusercontent.com/120678001/208125314-30edb6f6-e6e6-4b8d-829b-1f69740800ca.PNG)
 
+The users and services in a realm are defined as a principal in Kerberos. These principals are managed by an admin user that we need to create manually :
+
+``` 
+    $ sudo kadmin.local
+    kadmin.local:  add_principal root/admin
+``` 
+
+
+
+
+
+
+
+
+kadmin.local is a KDC database administration program. We used this tool to create a new principal in the TEKUP.COM realm (add_principal).
+
+We can check if the user root/admin was successfully created by running the command : kadmin.local: list_principals. We should see the 'root/admin@TEKUP.COM' principal listed along with other default principals.
+
+
 Next, we need to grant all access rights to the Kerberos database to admin principal root/admin using the configuration file /etc/krb5kdc/kadm5.acl .
 
 ``` sudo vi /etc/krb5kdc/kadm5.acl``` 
