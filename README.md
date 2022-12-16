@@ -318,11 +318,11 @@ The users and services in a realm are defined as a principal in Kerberos. These 
 ``` 
 ![16](https://user-images.githubusercontent.com/120678001/208147876-5cef074c-0fed-49f2-a4fe-0ade1d28600d.PNG)
 
-kadmin.local is a KDC database administration program. We used this tool to create a new principal in the TEKUP.COM realm (add_principal).
+kadmin.local is a KDC database administration program. We used this tool to create a new principal in the TEKUP.TN realm (add_principal).
 
 We can check if the user root/admin was successfully created by running the command : 
 kadmin.local: list_principals. 
-We should see the 'root/admin@TEKUP.COM' principal listed along with other default principals.
+We should see the 'root/admin@TEKUP.TN' principal listed along with other default principals.
 
 ![16 - Copie](https://user-images.githubusercontent.com/120678001/208147878-c444a125-492a-411c-a474-c826e1fc1d49.PNG)
 
