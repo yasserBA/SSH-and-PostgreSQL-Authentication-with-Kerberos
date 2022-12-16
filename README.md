@@ -384,8 +384,8 @@ We need to extract the service principal from KDC principal database to a keytab
 
 ``` 
 $ Ktutil
-ktutil: add_entry -password -p postgres/pg.tekup.tn@TEKUP.TN -k 1 -e aes256-cts-hmac-sha1-96
-Password for postgres/pg.tekup.tn@TEKUP.TN:
+ktutil: add_entry -password -p yasser/pg.tekup.tn@TEKUP.TN -k 1 -e aes256-cts-hmac-sha1-96
+Password for yasser/pg.tekup.tn@TEKUP.TN:
 ktutil: wkt postgres.keytab
 ```
 
