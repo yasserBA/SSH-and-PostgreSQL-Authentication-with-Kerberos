@@ -263,7 +263,7 @@ Now that we added ip addresses to the virtual machines, we will start by setting
 
 And open a new terminal for changes to take effect.
 
-We can check the hostname of a machine by running the command : hostname
+We can check the hostname of a machine by running the command : ```hostname```
 
 Next, we will be mapping these hostnames to their corresponding IP addresses on all three machines using /etc/hosts file.
 sudo vi /etc/hosts
