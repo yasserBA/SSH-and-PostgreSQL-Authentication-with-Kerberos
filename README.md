@@ -316,18 +316,15 @@ The users and services in a realm are defined as a principal in Kerberos. These 
     $ sudo kadmin.local
     kadmin.local:  add_principal root/admin
 ``` 
-
-
-
-
-
-
-
+![16](https://user-images.githubusercontent.com/120678001/208147876-5cef074c-0fed-49f2-a4fe-0ade1d28600d.PNG)
 
 kadmin.local is a KDC database administration program. We used this tool to create a new principal in the TEKUP.COM realm (add_principal).
 
-We can check if the user root/admin was successfully created by running the command : kadmin.local: list_principals. We should see the 'root/admin@TEKUP.COM' principal listed along with other default principals.
+We can check if the user root/admin was successfully created by running the command : 
+kadmin.local: list_principals. 
+We should see the 'root/admin@TEKUP.COM' principal listed along with other default principals.
 
+![16 - Copie](https://user-images.githubusercontent.com/120678001/208147878-c444a125-492a-411c-a474-c826e1fc1d49.PNG)
 
 Next, we need to grant all access rights to the Kerberos database to admin principal root/admin using the configuration file /etc/krb5kdc/kadm5.acl .
 
@@ -341,9 +338,11 @@ In this file, we need to add the following line :
 
 ![17](https://user-images.githubusercontent.com/120678001/208129593-636f31d1-0058-4b9c-8a3d-170b94b52339.PNG)
 
-### Creating Principals
+For changes to take effect, we need to restart the following service : sudo service krb5-admin-server restart
 
-**Create a principal for the client**
+Once the admin user who manages principals is created, we need to create the principals. We will to create principals for both the client machine and the service server machine.
+
+**Create a principal related to the client
 
 ``` 
 $ Kadmin.local
