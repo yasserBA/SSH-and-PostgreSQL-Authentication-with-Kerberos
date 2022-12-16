@@ -251,14 +251,14 @@ In my case :
 
 Now that we added ip addresses to the virtual machines, we will start by setting hostnames for each machine :
 
-   • List the current keylist again
+   • Client machine
    
    ![3](https://user-images.githubusercontent.com/120678001/208122091-dca1e091-5158-4dbb-aff0-d7e671cf395d.PNG)
 
-   • List the current keylist again
+   • KDC machine
    ![1](https://user-images.githubusercontent.com/120678001/208122094-bb4de3f3-d61c-42e2-9924-8fb0d42a8d1a.PNG)
    
-   • List the current keylist again
+   • Service Server machine
       ![2](https://user-images.githubusercontent.com/120678001/208122096-76477819-88c7-4709-84f8-4b52a2d6bc94.PNG)
 
 And open a new terminal for changes to take effect.
@@ -302,6 +302,11 @@ The administrative server : ' kdc.tekup.tn '
 Realm is a logical network, similar to a domain, that all the users and servers sharing the same Kerberos database belong to.
 
 The master key for this KDC database needs to be set once the installation is complete :
+
+``` 
+sudo krb5_newrealm
+```
+
 ![15](https://user-images.githubusercontent.com/120678001/208125314-30edb6f6-e6e6-4b8d-829b-1f69740800ca.PNG)
 ### Creating Principals
 
