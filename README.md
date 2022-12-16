@@ -218,6 +218,8 @@ The user has his TGT and he will use it to grant access to the SSH Service
 
 ## Service 2: PostgreSQL
 
+### Introduction
+
 PostgreSQL supports many secure ways to authenticate users, and one typical way is to use GSSAPI with Kerberos. 
 
 ![image](https://user-images.githubusercontent.com/120678001/208054089-5b18968d-807f-4d79-89e7-e5b96f37a5e3.png)
@@ -231,6 +233,70 @@ When PostgreSQL authenticates a user with Kerberos, the overall processes in abo
 •	Client forwards the communication session key to Service Server(PG) to confirm the user authentication. If it succeeded then both Client and Service Server will use the communication session key for the rest of the communication
 
 We will to create another principal for the client machine and the service server machine.
+
+### Creating Principals
+
+**Create a principal for the client**
+
+``` 
+$ Kadmin.local
+kadmin: add_principal rayen-yasser
+```
+
+![image](https://user-images.githubusercontent.com/120678001/208056422-c14b8d83-4663-4f78-b047-6adad915f116.png)
+
+**Create a principal for the service server**
+
+``` 
+$ Kadmin.local
+kadmin: add_principal postgres/client2.tekup.tn
+```
+
+![image](https://user-images.githubusercontent.com/120678001/208056800-cae1fe43-f3b6-48d9-b270-9276b36d5d49.png)
+
+For an easier configuration of Postgres, I changed the Operating System login name from 'yasser' to 'postgres'.
+
+### Configuration of Kerberos on machine server
+
+Following are the packages that need to be installed on the Service server machine
+
+``` $ sudo apt-get install krb5-user libpam-krb5 libpam-ccreds  ```
+
+![image](https://user-images.githubusercontent.com/120678001/208057005-62c1ddbf-8464-4bf2-8060-00bcb2a6d02a.png)
+
+During the installation, we will be asked for the configuration of the realm, the kerberos server and the administrative server
+
+*PS: We need to enter the same information used for KDC Server*
+
+### Preparation of the keytab file
+
+We need to extract the service principal from KDC principal database to a keytab file
+
+1. In the KDC machine run the following command to generate the keytab file in the current folder: 
+
+``` 
+$ Ktutil
+ktutil: add_entry -password -p postgres/pg.tekup.tn@TEKUP.TN -k 1 -e aes256-cts-hmac-sha1-96
+Password for postgres/pg.tekup.tn@TEKUP.TN:
+ktutil: wkt postgres.keytab
+```
+
+![23](https://user-images.githubusercontent.com/120678001/208058572-05c82fec-563d-473f-adfe-3bcb04e22bfe.PNG)
+
+2. Send the keytab file from the KDC machine to the Service server machine :
+
+In the Postgres server machine make the following directories :
+
+``` $ mkdir -p /home/postgres/pgsql/data ```
+
+In the KDC machine send the keytab file to the Postgres server :
+
+```$ scp postgres.keytab postgres@PG_SERVER_IP_ADDRESS:/home/postgres/pgsql/data```
+
+*PS: We need to have openssh-server package installed on the service server*
+
+
+
 
 
 
