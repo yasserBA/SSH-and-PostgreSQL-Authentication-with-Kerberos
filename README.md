@@ -507,7 +507,8 @@ Some of the possible choices for the authentication method field are the followi
  
  ``` sudo systemctl restart postgresql ```
  
- ![image](https://user-images.githubusercontent.com/120678001/208069328-d4152831-af3e-4707-b0ee-95cdbcf8a6a8.png)
+![image](https://user-images.githubusercontent.com/120678001/208133681-935c8447-5f55-4e55-96da-aeb77977c0c5.png)
+
 
 ### Client Machine Configuration
 
