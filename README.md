@@ -311,7 +311,8 @@ sudo krb5_newrealm
 ![15](https://user-images.githubusercontent.com/120678001/208125314-30edb6f6-e6e6-4b8d-829b-1f69740800ca.PNG)
 
 Next, we need to grant all access rights to the Kerberos database to admin principal root/admin using the configuration file /etc/krb5kdc/kadm5.acl .
-sudo vi /etc/krb5kdc/kadm5.acl
+
+``` sudo vi /etc/krb5kdc/kadm5.acl``` 
 
 In this file, we need to add the following line :
 
